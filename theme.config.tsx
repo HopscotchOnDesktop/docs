@@ -9,17 +9,11 @@ const config: DocsThemeConfig = {
   feedback: {
     content: null
   },
-  editlink: {
+  editLink: {
     component: null
   },
   footer: {
-    text: (
-      <span>
-        <a href="https://HopscotchOnDesktop.github.io" target="_blank">
-          HopscotchOnDesktop
-        </a>
-      </span>
-    )
+    component: null
   },
 }
 
