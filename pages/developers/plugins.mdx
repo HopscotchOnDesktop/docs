@@ -1,0 +1,223 @@
+import { Callout } from 'nextra/components'
+
+# Plugin Documentation
+<Callout type="warning">
+Plugin docs are still under construction.
+</Callout>
+
+## File structure
+
+Example:
+```
+Hello_World
+├── manifest.json
+├── scripts
+│   ├── start.hsp
+│   └── click.hsp
+└── assets
+    └── icon.png
+```
+In this example `Hello World` is the name of the extension. `start.hsp` and `click.hsp` are scripts that will be run according to `manifest.json`.
+
+This is an ideal structure but you can organise and name the files however you like as it all comes down to the manifest file. The manifest file must be called `manifest.json` and should be at the root of the folder.
+
+In this example, this is `manifest.json`:
+
+```json filename="manifest.json"
+{
+  "events": {
+    "startUp": "scripts/start.hsp",
+    "onExecute": "scripts/click.hsp"
+  },
+  "metadata": {
+    "name": "Hello World",
+    "description": "A Test Plugin",
+    "version": "1.0.0",
+    "icon": "assets/icon.png",
+    "author": {
+      "forumUsername": "@DogIcing",
+      "forumUrl": "https://forum.gethopscotch.com/u/DogIcing"
+    }
+  }
+}
+```
+
+## Mainfest.json
+
+Format:
+
+```
+events
+├── startUp
+└── onExecute
+metadata
+├── name
+├── description
+├── version
+├── icon
+└── author
+    ├── forumUsername
+    └── forumUrl
+```
+
+## The `current_scene_index` property
+**Type:** `int`
+
+**Returns:** A zero-based index of current scene
+
+## The `scenes` property
+**Type:** `List<hs_scene>`
+
+**Returns:** Scenes in project
+
+## The `hs_scene` class
+
+| Attribute | Type | Description |
+|-|-|-|
+| `hs_scene.id` | `string` | UUID of scene (not from project data) |
+| `hs_scene.name` | `string` | Name of scene |
+| `hs_scene.objects` | `List<hs_object>` | Objects in scene |
+
+## The `hs_object` class
+
+| Attribute | Type | Description |
+|-|-|-|
+| `hs_object.id` | `string` | UUID of object (not from project data) |
+| `hs_object.name` | `string` | Name of object |
+| `hs_object.rules` | `List<hs_rule>` | Rules in object |
+| `hs_object.eventData` | `eventdata` | Event Data |
+| `hs_object.type` | `int` | Type of object |
+| `hs_object.element` | `dynamic` | The WPF element in the canvas representing the object |
+
+## The `hs_rule` class
+
+| Attribute | Type | Description |
+|-|-|-|
+| `hs_rule.id` | `string` | UUID of rule (not from project data) |
+| `hs_rule.abilities` | `List<hs_ability>` | Abilities in rule |
+| `hs_rule.type` | `int` | Type of rule |
+
+## The `hs_ability` class
+
+| Attribute | Type | Description |
+|-|-|-|
+| `hs_ability.id` | `string` | UUID of ability (not from project data) |
+| `hs_ability.abilities` | `List<hs_block>` | Blocks in ability |
+| `hs_ability.type` | `int` | Type of ability |
+
+## The `hs_block` class
+
+| Attribute | Type | Description |
+|-|-|-|
+| `hs_ability.id` | `string` | UUID of block (not from project data) |
+| `hs_ability.type` | `int` | Type of block |
+
+## The `eventData` class
+
+| Attribute | Type | Description |
+|-|-|-|
+| `eventData.touch` | `bool` | Is it being touched |
+| `eventData.SwipeStart` | `Point` | Where the first touch was (used to determine swipe actions) - not useful for plugins |
+
+## The `alert()` function
+
+#### Description
+Shows a [MessageBox](https://learn.microsoft.com/en-us/dotnet/api/system.windows.messagebox) to the user
+
+#### Methods
+| Method | Description |
+|-|-|
+| `alert(string)` | Shows a message |
+| `alert(string, string, MessageBoxButton)` | Shows a message with buttons |
+
+#### The `MessageBoxButton` Enumerator
+For simplicity, I have included [`System.Windows.MessageBoxButton`](https://learn.microsoft.com/en-us/dotnet/api/system.windows.messageboxbutton) as part of the global variables given to the plugins. It is under the same name and can be called using `MessageBoxButton`.
+
+Definition in global class:
+
+```public MessageBoxButton MessageBoxButton = new MessageBoxButton();```
+
+#### Example 1
+```
+string a = "hello world";
+alert(a);
+
+// invokes MessageBox.Show("hello world")
+```
+
+#### Example 2
+```
+alert("Do you want to continue?", "Warning", MessageBoxButton.YesNo);
+
+// invokes MessageBox.Show("Do you want to continue?", "Warning", MessageBoxButton.YesNo)
+```
+---
+## The  `blocktypes` class
+
+The blocktypes class can be used as a human-readable way to compare Hopscotch Blocks.
+
+It contains the following enumerators:
+
+---
+### `blocktypes.When`
+These are the purple rule blocks like `When Game Starts`
+
+Definitions:
+
+| Name | Value (HS Rule Type) |
+|-|-|
+| `GameStarts` | 7000 |
+| `IsTapped` | 7001 |
+| `IsTouching` | 7002
+| `IsPressed` | 7003 |
+| `TiltedRight` | 7004 |
+| `TiltedLeft` | 7005 |
+| `TiltedUp` | 7006 |
+| `TiltedDown` | 7007 |
+| `LoudNoise` | 7008 |
+| `IsShaken` | 7009 |
+| `Bumps` | 7010
+| `IsSwipedRight` | 7011 |
+| `IsSwipedLeft` | 7012 |
+| `IsSwipedUp` | 7013 |
+| `IsSwipedDown` | 7014 |
+| `Cloned` | 7015 |
+| `IsNotPressed` | 7020 |
+| `IsPlaying` | 7021 |
+| `TouchEnds` | 7022
+| `GetMessage` | 7023 |
+| `MessageMatches` | 7024 |
+| `IsNotTouching` | 7025 |
+
+Example:
+
+```
+if (rule.type == blocktypes.When.IsTapped) {
+    // code to be executed
+}
+```
+---
+
+### `blocktypes.Looks`
+
+<Callout type="info">Coming Soon</Callout>
+
+---
+
+### `blocktypes.Movement`
+
+<Callout type="info">Coming Soon</Callout>
+
+---
+
+### `blocktypes.Control`
+
+<Callout type="info">Coming Soon</Callout>
+
+---
+
+### `blocktypes.Variables`
+
+<Callout type="info">Coming Soon</Callout>
+
+---
