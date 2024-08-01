@@ -13,7 +13,13 @@ const config: DocsThemeConfig = {
     component: null
   },
   footer: {
-    component: null
+    text: (
+      <span>
+        <a href="https://HopscotchOnDesktop.github.io" target="_blank">
+          HopscotchOnDesktop
+        </a>
+      </span>
+    )
   },
 }
 
