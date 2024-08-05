@@ -2,15 +2,14 @@
   "index": "Introduction",
   "start": "Get Started",
   "developers": "Developers",
+  "github_docs": {
+    "title": "Docs Repo",
+    "type": "page",
+    "href": "https://www.github.com/HopscotchOnDesktop/docs"
+  },
   "home": {
     "title": "Home",
     "type": "page",
     "href": "https://HopscotchOnDesktop.github.io"
-  },
-  "docs": {
-    "title": "Docs Repo",
-    "type": "page",
-    "href": "https://www.github.com/HopscotchOnDesktop/docs",
-    "newWindow": true
   }
 }
