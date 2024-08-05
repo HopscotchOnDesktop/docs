@@ -6,7 +6,7 @@ const config: DocsThemeConfig = {
   project: {
     link: 'https://github.com/HopscotchOnDesktop/HopscotchOnDesktop',
   },
-  docsRepositoryBase: 'https://github.com/HopscotchOnDesktop/docs',
+  docsRepositoryBase: 'https://github.com/HopscotchOnDesktop/docs/tree/main/',
   feedback: {
     content: null
   },
